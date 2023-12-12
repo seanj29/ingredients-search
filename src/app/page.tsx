@@ -3,12 +3,12 @@ import { useState, useEffect } from "react"
 
 export default function Home() {
 
-  // type RecipeReponse = [{
-  //   id: string,
-  //   ingredients: string,
-  //   title: string,
-  //   uuid: string,
-  // }]
+  type RecipeReponse = [{
+    id: string,
+    ingredients: string,
+    title: string,
+    uuid: string,
+  }]
 
   const [query, setQuery] = useState("")
   const [recipes, setRecipes] = useState<any>([]) 
@@ -33,7 +33,7 @@ export default function Home() {
    
     recipes
 
-    .filter((recipe) => 
+    .filter((recipe: {id: string, title: string; }) => 
 
    {
    if(recipe.title.toLowerCase().includes(query.toLowerCase())){
@@ -44,7 +44,7 @@ export default function Home() {
    )
 
    
-   .map((recipe) => 
+   .map((recipe: {id: string, title: string}) => 
    <p key={recipe.id}>{recipe.title}</p>
    )
 }
