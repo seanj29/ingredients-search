@@ -1,30 +1,51 @@
 "use client"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 export default function Home() {
 
-  const [query, setQuery] = useState("")
+  // type RecipeReponse = [{
+  //   id: string,
+  //   ingredients: string,
+  //   title: string,
+  //   uuid: string,
+  // }]
 
-  const datarec =  {"egg ": "soyyyyy", "nog": "boyyy"}
+  const [query, setQuery] = useState("")
+  const [recipes, setRecipes] = useState<any>([]) 
+
+
+  useEffect(() => {
+
+    const fetchRecipes = async () =>{
+
+      const response = await fetch("nottelling.com")
+      const data = await response.json()
+      setRecipes(data)
+    }
+
+    fetchRecipes()
+  }, [])
 
   return (
     <div>
    <input placeholder="Enter Recipe Name" onChange= {(e) => setQuery(e.target.value)} />
    {
    
-   Object.keys(datarec)
+    recipes
 
-   .filter((title) => 
+    .filter((recipe) => 
 
    {
-   if(title.toLowerCase().includes(query.toLowerCase())){
-    return title
+   if(recipe.title.toLowerCase().includes(query.toLowerCase())){
+    return recipe.title
    }
    }
    
    )
-   .map((title, i) => 
-   <p key={i}>{title}</p>
+
+   
+   .map((recipe) => 
+   <p key={recipe.id}>{recipe.title}</p>
    )
 }
    </div>
