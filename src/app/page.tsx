@@ -3,22 +3,38 @@ import { useState, useEffect } from "react"
 
 export default function Home() {
 
-  type RecipeReponse = [{
-    id: string,
-    ingredients: string,
-    title: string,
-    uuid: string,
-  }]
+  // type RecipeReponse = [{
+  //   id: string,
+  //   ingredients: string,
+  //   title: string,
+  //   uuid: string,
+  // }]
+  type PersonType = {
+    result:
+    [{
+  name: 
+    {
+    first: string
+    }
+  ,
+  id:
+    {
+    value: Number
+    }
+  }
+]
+
+  }
 
   const [query, setQuery] = useState("")
-  const [recipes, setRecipes] = useState<any>([]) 
+  const [recipes, setRecipes] = useState<PersonType>() 
 
 
   useEffect(() => {
 
     const fetchRecipes = async () =>{
 
-      const response = await fetch("nottelling.com")
+      const response = await fetch("https://randomuser.me/api/?results=50")
       const data = await response.json()
       setRecipes(data)
     }
@@ -31,21 +47,21 @@ export default function Home() {
    <input placeholder="Enter Recipe Name" onChange= {(e) => setQuery(e.target.value)} />
    {
    
-    recipes
+    recipes?.result
 
-    .filter((recipe: {id: string, title: string; }) => 
+    .filter((recipe) => 
 
    {
-   if(recipe.title.toLowerCase().includes(query.toLowerCase())){
-    return recipe.title
+   if(recipe.name.first.toLowerCase().includes(query.toLowerCase())){
+    return recipe.name.first
    }
    }
    
    )
 
    
-   .map((recipe: {id: string, title: string}) => 
-   <p key={recipe.id}>{recipe.title}</p>
+   .map((recipe, i) => 
+   <p key={recipe.id.value && i}>{recipe.name.first}</p>
    )
 }
    </div>
