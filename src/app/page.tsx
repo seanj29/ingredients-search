@@ -1,14 +1,14 @@
+import { Suspense } from "react";
+import RecipeList from "@/app/ui/recipes";
 
-
-export default function Home() {
-
-  
-
+export default async function Home() {
 
 
   return (
     <div>
- <p> Hiiiiiiiiii....! </p>
+      <Suspense fallback ={<p>Loading...</p>}>
+        <RecipeList/>
+      </Suspense>
    </div>
   )
 }
