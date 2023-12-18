@@ -10,10 +10,12 @@
     "seed": "node -r dotenv/config .\\src\\db\\seed.js"
   },
   "dependencies": {
+    "@heroicons/react": "^2.0.18",
     "@vercel/postgres": "^0.5.1",
     "next": "14.0.4",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "use-debounce": "^10.0.0"
   },
   "devDependencies": {
     "@types/node": "^20",

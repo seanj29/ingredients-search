@@ -11,10 +11,13 @@ export async function GET(request: NextRequest){
 
   const sizeasNum = parseInt(size || "25")
   const pageasNum = parseInt(page ||"1")
-
-  const data = await sql<Recipe>`SELECT id, name FROM recipes WHERE ${query} % ANY(STRING_TO_ARRAY(name, ' ')) ORDER BY SIMILARITY(name, ${query}) DESC OFFSET ${(pageasNum-1) * sizeasNum} FETCH NEXT ${sizeasNum} ROW ONLY`;  
-    
+  const data = query 
+  ? 
+  await sql<Recipe>`SELECT id, name FROM recipes WHERE ${query} % ANY(STRING_TO_ARRAY(name, ' ')) ORDER BY SIMILARITY(name, ${query}) DESC OFFSET ${(pageasNum-1) * sizeasNum} FETCH NEXT ${sizeasNum} ROW ONLY` 
+  : 
+  await sql<Recipe>`SELECT id, name FROM recipes ORDER BY id ASC OFFSET ${(pageasNum-1) * sizeasNum} FETCH NEXT ${sizeasNum} ROW ONLY`;
   
-
-    return Response.json(data.rows)
-  }
+  
+  return Response.json(data.rows)
+  } 
+  

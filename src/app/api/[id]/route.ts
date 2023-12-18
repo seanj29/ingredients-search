@@ -5,6 +5,7 @@ import { type NextRequest } from 'next/server';
 
 export async function GET(
     request: NextRequest,
+    // do not remove the request!! no override. Very cringe
     { params }: { params: { id: number } }
     ){
   const id = params.id
