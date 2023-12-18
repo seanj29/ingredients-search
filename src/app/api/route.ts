@@ -1,6 +1,6 @@
 
 import { sql } from '@vercel/postgres';
-import { Recipes } from "../../db/definitions"
+import { Recipe } from "../../db/definitions"
 import { type NextRequest } from 'next/server';
 
 export async function GET(request: NextRequest){
@@ -12,7 +12,7 @@ export async function GET(request: NextRequest){
   const sizeasNum = parseInt(size || "25")
   const pageasNum = parseInt(page ||"1")
 
-  const data = await sql<Recipes>`SELECT id, name FROM recipes WHERE ${query} % ANY(STRING_TO_ARRAY(name, ' ')) ORDER BY SIMILARITY(name, ${query}) DESC OFFSET ${(pageasNum-1) * sizeasNum} FETCH NEXT ${sizeasNum} ROW ONLY`;  
+  const data = await sql<Recipe>`SELECT id, name FROM recipes WHERE ${query} % ANY(STRING_TO_ARRAY(name, ' ')) ORDER BY SIMILARITY(name, ${query}) DESC OFFSET ${(pageasNum-1) * sizeasNum} FETCH NEXT ${sizeasNum} ROW ONLY`;  
     
   
 
