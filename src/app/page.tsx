@@ -5,7 +5,18 @@ import Search from "@/app/ui/search"
 async function getRecipes(query: string | null): Promise<Recipe[]>{
   // Adding this change to hopefully rebuild this 
   const baseUrl = process.env.ROOT_URL || "http://localhost:3000"
-  const res = await fetch(`${baseUrl}/api?query=${query}`)
+  const params = new URLSearchParams();
+  if(query){
+    params.set('query', query);
+    params.set("page", "1")
+    params.set("size", "10")
+  }
+  else {
+    params.delete('query');
+    params.delete('page');
+    params.delete('size');
+  }
+  const res = await fetch(`${baseUrl}/api?${params.toString()}`);
   if(!res.ok){
 
     throw new Error('Failed to fetch Recipes')
