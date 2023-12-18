@@ -12,7 +12,7 @@ export async function GET(request: NextRequest){
   const sizeasNum = parseInt(size || "25")
   const pageasNum = parseInt(page ||"1")
 
-  const data = await sql`SELECT name FROM recipes WHERE ${query} % ANY(STRING_TO_ARRAY(name, ' ')) ORDER BY SIMILARITY(name, ${query}) DESC OFFSET ${pageasNum * sizeasNum} FETCH NEXT ${sizeasNum} ROW ONLY`;  
+  const data = await sql<Recipes>`SELECT name FROM recipes WHERE ${query} % ANY(STRING_TO_ARRAY(name, ' ')) ORDER BY SIMILARITY(name, ${query}) DESC OFFSET ${pageasNum * sizeasNum} FETCH NEXT ${sizeasNum} ROW ONLY`;  
     
   
 
