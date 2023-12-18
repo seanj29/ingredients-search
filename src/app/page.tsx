@@ -3,8 +3,8 @@ import { type Recipe } from "@/db/definitions";
 import Search from "@/app/ui/search"
 
 async function getRecipes(query: string | null): Promise<Recipe[]>{
-  
-  const res = await fetch(`http://localhost:3000/api?query=${query}`)
+  const baseUrl = process.env.ROOT_URL || "http://localhost:3000"
+  const res = await fetch(`${baseUrl}/api?query=${query}`)
   if(!res.ok){
 
     throw new Error('Failed to fetch Recipes')
