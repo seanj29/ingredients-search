@@ -3,6 +3,7 @@ import { type Recipe } from "@/db/definitions";
 import Search from "@/app/ui/search"
 
 async function getRecipes(query: string | null): Promise<Recipe[]>{
+  // Adding this change to hopefully rebuild this 
   const baseUrl = process.env.ROOT_URL || "http://localhost:3000"
   const res = await fetch(`${baseUrl}/api?query=${query}`)
   if(!res.ok){
