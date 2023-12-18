@@ -1,6 +1,5 @@
 import { Suspense } from "react";
 import { type Recipe } from "@/db/definitions";
-import { type NextRequest } from 'next/server';
 
 async function getRecipes(query: string | null): Promise<Recipe[]>{
   const res = await fetch(`http://localhost:3000/api?query=${query}`)
@@ -18,10 +17,12 @@ export default async function Home({searchParams}: {searchParams : {query: strin
   const data = await getRecipes(query);
   return (
     <div>
+      <Suspense>
         <ul>
           {data.map(recipe => 
             (<li key= {recipe.id}>{recipe.name}</li>))}
         </ul>
+      </Suspense>  
    </div>
   )
 }
