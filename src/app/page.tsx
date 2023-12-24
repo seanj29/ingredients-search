@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { type Recipe } from "@/db/definitions";
 import Search from "@/app/ui/search"
+import Link from "next/link";
 
 async function getRecipes(query: string | null): Promise<Recipe[]>{
   // Adding this change to hopefully rebuild this 
@@ -30,12 +31,17 @@ export default async function Home({searchParams}: {searchParams : {query: strin
 
   const data = await getRecipes(query);
   return (
-    <div>
+    <div className="m-10">
       <Search placeholder="Please Search a Recipe Name"/>
       <Suspense>
-        {query && <ul>
+        {query && <ul className="mx-auto flex flex-col w-96 rounded-md border border-gray-200 ml-0 text-balance divide-y">
           {data.map(recipe => 
-            (<li key= {recipe.id}>{recipe.name}</li>))}
+
+            (<li key= {recipe.id} className="py-4">
+              <Link href={`recipes/${recipe.id}`}>{recipe.name}</Link>
+              </li>)
+            
+            )}
         </ul>}
       </Suspense>  
    </div>
