@@ -17,21 +17,21 @@ async function seedRecipes(client) {
 
       console.log(`Created "recipe" table`);
 
-      const insertedRecipes = await Promise.all(
-    recipes.map(async (recipe) =>{
+    //   const insertedRecipes = await Promise.all(
+    // recipes.map(async (recipe) =>{
 
-      return client.sql`
-      INSERT INTO recipes (name, ingredients)
-      VALUES (${recipe.title}, ${recipe.ingredients})
-      `;
-    }),
-    );
+    //   return client.sql`
+    //   INSERT INTO recipes (name, ingredients)
+    //   VALUES (${recipe.title}, ${recipe.ingredients})
+    //   `;
+    // }),
+    // );
 
-    console.log(`Seeded ${insertedRecipes.length} recipes`);
+    // console.log(`Seeded ${insertedRecipes.length} recipes`);
 
     return{
       createTable,
-      recipes: insertedRecipes,
+      // recipes: insertedRecipes,
     };
     }
     catch (err) {
